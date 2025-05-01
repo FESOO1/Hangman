@@ -15,6 +15,8 @@ const gameObj = {
         hangmanImage: ['./assets/1.png', './assets/2.png', './assets/3.png', './assets/4.png', './assets/5.png', './assets/6.png', './assets/7.png'],
         hangmanAnimation: ['500ms steps(8, jump-none) infinite hangman-step-animation', '500ms steps(4, jump-none) infinite hangman-step-animation', '500ms steps(3, jump-none) infinite hangman-step-animation', '500ms steps(2, jump-none) infinite hangman-step-animation', '500ms steps(2, jump-none) infinite hangman-step-animation', '500ms steps(1, jump-none) infinite hangman-step-animation', '500ms steps(1, jump-none) infinite hangman-step-animation'],
     },
+    letterFound: false,
+    gameHasBeenWon: false,
 };
 
 // GETTING A RANDOM WORD
@@ -78,24 +80,23 @@ function disablingTheKeyButtons() {
 for (let i = 0; i < keyButtons.length; i++) {
     keyButtons[i].addEventListener('click', () => {
         const keyValue = keyButtons[i].value;
-        let found = false;
+        
+        checkIfTheKeyExists(keyValue);
 
+        // HANDLING THE HANGMAN AND TEXT
         for (let inner = 0; inner < gameObj.word.wordItself.length; inner++) {
             if (keyValue === gameObj.word.wordItself[inner]) {
                 wordContainer.children[inner].textContent = gameObj.word.wordItself[inner];
-                found = true;
-                return;
             } else {
                 // CHANGING THE ANIMATION
                 hangman.style.background = `url(${gameObj.hangman.hangmanImage[gameObj.hangman.hangmanCounter]}) no-repeat`;
                 hangman.style.backgroundSize = 'cover';
                 hangman.style.backgroundPosition = 'left';
                 hangman.style.animation = gameObj.hangman.hangmanAnimation[gameObj.hangman.hangmanCounter];
-                found = false;
             };
         };
 
-        if (found === false) {
+        if (gameObj.letterFound === false) {
             keyButtons[i].disabled = true;
             keyButtons[i].classList.add('main-keyboard-inner-button-non-existent');
             keyButtons[i].classList.remove('main-keyboard-inner-button-found');
@@ -113,6 +114,19 @@ for (let i = 0; i < keyButtons.length; i++) {
             revealTheWord();
         };
     });
+};
+
+// CHECK IF THE KEY EXISTS
+
+function checkIfTheKeyExists(keyValue) {
+    for (let i = 0; i < gameObj.word.wordItself.length; i++) {
+        if (gameObj.word.wordItself[i] === keyValue) {
+            gameObj.letterFound = true;
+            return;
+        } else {
+            gameObj.letterFound = false;
+        };
+    };
 };
 
 // REVEAL THE WORD
