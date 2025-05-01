@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+:root {
+    --keyboard-button-weight: 800;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+body {
+    background-color: rgb(240,240,240);
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(./assets/bg.svg);
+    background-size: 20%;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* MAIN */
+
+main {
+    --width: 550px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 20px;
+    row-gap: 20px;
+}
+
+/* MAIN TOP */
+
+.main-top {
+    width: var(--width);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* MAIN TOP CATEGORY */
+
+.main-top-category {
+    font-style: italic;
+}
+
+/* 
+
+    MAIN HANGMAN AND WORD
+
+*/
+
+.main-hangman-word {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+}
+
+/* MAIN HANGMAN */
+
+.main-hangman {
+    width: 175px;
+    height: 275px;
+    background: url(./assets/0.png) no-repeat;
+    background-size: cover;
+    background-position: left;
+    animation: 500ms steps(4, jump-none) infinite hangman-step-animation;
+}
+
+@keyframes hangman-step-animation {
+    to{background-position: right;}
+}
+
+/* MAIN HANGMAN WORD */
+
+.main-word {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.main-word-inner {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+/* 
+
+    MAIN KEYBOARD
+
+*/
+
+.main-keyboard {
+    width: var(--width);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.main-keyboard-inner {
+    display: flex;
+    column-gap: 8px;
+}
+
+.main-keyboard-inner-button {
+    width: 100%;
+    padding-block: 10px;
+    font-weight: var(--keyboard-button-weight);
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 0 3px 0 rgba(79, 79, 79, 0.999);
+    cursor: pointer;
+    outline: none;
+}
+
+.main-keyboard-inner-button:focus {
+    outline: 2px solid rgb(255, 85, 0);
+    outline-offset: 1px;
+}
+
+.main-keyboard-inner-button:disabled {
+    pointer-events: none;
+    box-shadow: 0 0 0 rgba(79, 79, 79, 0.999);
+    transform: translateY(3px);
+}
+
+.main-keyboard-inner-button-found {
+    background-color: rgb(95, 255, 47);
+}
+
+.main-keyboard-inner-button-non-existent {
+    background-color: rgb(255, 52, 52);
+    color: white;
+}
+
+.main-keyboard-inner-button:hover {
+    background-color: rgb(245,245,245);
+}
+
+.main-keyboard-inner-button:active {
+    background-color: rgb(245,245,245);
+    box-shadow: 0 0 0 rgba(79, 79, 79, 0.999);
+    transform: translateY(3px);
+}
+
+.main-keyboard-inner:nth-of-type(2) {
+    padding-inline: 15px;
+}
+
+.main-keyboard-inner:nth-of-type(3) {
+    padding-inline: 55px;
+}
