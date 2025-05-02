@@ -195,3 +195,80 @@ main {
 .main-keyboard-inner:nth-of-type(3) {
     padding-inline: 55px;
 }
+
+/* 
+
+    MAIN MENU
+
+*/
+
+.main-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.15);
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms, filter 300ms;
+}
+
+.main-menu-active {
+    opacity: 1;
+    filter: blur(0);
+    pointer-events: unset;
+}
+
+.main-menu-active .main-menu-itself {
+    transform: translateY(0);
+}
+
+.main-menu-itself {
+    width: 350px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 1rem;
+    border: 1px solid rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    transform: translateY(150px);
+    transition: transform 300ms;
+}
+
+.main-menu-itself-header {
+    text-align: center;
+    line-height: 1.5;
+}
+
+.main-menu-itself-buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.main-menu-itself-button {
+    padding-block: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.main-menu-itself-button:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.main-menu-itself-button:active {
+    background-color: rgb(235, 235, 235);
+}

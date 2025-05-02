@@ -2,6 +2,10 @@ const keyButtons = document.querySelectorAll('.main-keyboard-inner-button');
 const hangman = document.querySelector('.main-hangman');
 const wordContainer = document.querySelector('.main-word');
 const categoryText = document.querySelector('#categoryText');
+const popupMenu = document.querySelector('.main-menu');
+const popupMenuText = document.querySelector('#popupMenuText');
+const playAgainButton = document.querySelector('#playAgainButton');
+const menuOpenButton = document.querySelector('#menuOpenButton');
 
 // GAME OBJECT
 const gameObj = {
@@ -17,6 +21,31 @@ const gameObj = {
     },
     letterFound: false,
     gameHasBeenWon: false,
+    isGameStarted: false,
+};
+
+// OPEN MENU
+
+function openMenu() {
+    handlingThePlayAgainButtonText();
+    popupMenu.classList.add('main-menu-active');
+};
+
+// CLOSE MENU
+
+function closeMenu() {
+    popupMenu.classList.remove('main-menu-active');
+};
+
+// HANDLING THE PLAY AGAIN BUTTON
+
+function handlingThePlayAgainButtonText() {
+    if (gameObj.isGameStarted === false) {
+        playAgainButton.textContent = 'PLAY AGAIN';
+    } else {
+        playAgainButton.textContent = 'CONTINUE';
+        popupMenuText.textContent = 'Never give up!';
+    };
 };
 
 // GETTING A RANDOM WORD
@@ -48,6 +77,7 @@ gettingARandomWord();
 // DISPLAYING THE WORD ELEMENTS
 
 function displayingTheWordElements() {
+    wordContainer.innerHTML = '';
     for (let i = 0; i < gameObj.word.wordItself.length; i++) {
         const wordItself = document.createElement('span');
         wordItself.classList.add('main-word-inner');
@@ -57,6 +87,7 @@ function displayingTheWordElements() {
     };
 
     enablingTheKeyButtons();
+    gameObj.isGameStarted = true;
 };
 
 // ENABLING THE KEY BUTTONS
@@ -113,9 +144,12 @@ for (let i = 0; i < keyButtons.length; i++) {
         if (gameObj.gameHasBeenWon === false) {
             // CHECK IF THE PLAYER HAD USED ALL ITS ATTEMPTS
             if (gameObj.hangman.hangmanCounter === gameObj.hangman.hangmanImage.length) {
-                console.log('Opps, you died.');
                 disablingTheKeyButtons();
                 revealTheWord();
+                popupMenuText.textContent = 'Opps, You died. Try again';
+                setTimeout(() => popupMenu.classList.add('main-menu-active'), 2000);
+                gameObj.isGameStarted = false;
+                handlingThePlayAgainButtonText();
             };
         };
     });
@@ -152,7 +186,8 @@ function checkIfTheGameHasBeenWon() {
             counter++;
 
             if (counter === gameObj.word.wordItself.length) {
-                console.log('Congratulations, you won the game.');
+                popupMenuText.innerHTML = 'Congratulations, </br>You found the word!';
+                setTimeout(() => popupMenu.classList.add('main-menu-active'), 2000);
                 gameObj.gameHasBeenWon = true;
                 disablingTheKeyButtons();
 
@@ -161,6 +196,9 @@ function checkIfTheGameHasBeenWon() {
                 hangman.style.backgroundSize = 'cover';
                 hangman.style.backgroundPosition = 'left';
                 hangman.style.animation = '500ms steps(3, jump-none) infinite hangman-step-animation';
+
+                gameObj.isGameStarted = false;
+                handlingThePlayAgainButtonText();
             };
         } else {
             counter = 0;
@@ -168,11 +206,37 @@ function checkIfTheGameHasBeenWon() {
     };
 };
 
-// KEYS
-document.addEventListener('keypress', e => {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+// PLAY AGAIN
 
-    if (alphabet.includes(e.key)) {
-        
+function playAgain() {
+    gameObj.word.wordItself = undefined;
+    gameObj.word.wordCategory = undefined;
+    gameObj.hangman.hangmanCounter = 0;
+    gameObj.letterFound = false;
+    gameObj.isGameStarted = false;
+    gameObj.gameHasBeenWon = false;
+
+    // CHANGING THE ANIMATION
+    hangman.style.background = `url(./assets/0.png) no-repeat`;
+    hangman.style.backgroundSize = 'cover';
+    hangman.style.backgroundPosition = 'left';
+    hangman.style.animation = '500ms steps(4, jump-none) infinite hangman-step-animation';
+
+    gettingARandomWord();
+    closeMenu();
+
+    // REMOVING THE ADDITTIONAL CLASSES FROM THE KEY BUTTONS
+    for (const keyButton of keyButtons) {
+        keyButton.setAttribute('class', 'main-keyboard-inner-button');
+    };
+};
+
+// INITIALIZING THE BUTTONS
+menuOpenButton.addEventListener('click', openMenu);
+playAgainButton.addEventListener('click', () => {
+    if (gameObj.isGameStarted === true) {
+        closeMenu();
+    } else {
+        playAgain();
     };
 });

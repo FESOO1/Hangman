@@ -11,7 +11,7 @@
         <div class="main-top">
             <h3 class="main-top-logo">Hangman</h3>
             <h4 class="main-top-category" id="categoryText"></h4>
-            <button class="main-top-menu-button" type="button">
+            <button class="main-top-menu-button" type="button" id="menuOpenButton">
                 <svg class="main-top-menu-button-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#000000" fill="none">
                     <path d="M4 5L20 5" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M4 12L20 12" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -55,6 +55,15 @@
                 <button disabled class="main-keyboard-inner-button" type="button" value="b">B</button>
                 <button disabled class="main-keyboard-inner-button" type="button" value="n">N</button>
                 <button disabled class="main-keyboard-inner-button" type="button" value="m">M</button>
+            </div>
+        </div>
+        <div class="main-menu">
+            <div class="main-menu-itself">
+                <h2 class="main-menu-itself-header" id="popupMenuText">Congratulations, <br>You found the word!!!</h2>
+                <div class="main-menu-itself-buttons">
+                    <button class="main-menu-itself-button" type="button" id="playAgainButton">PLAY AGAIN</button>
+                    <button class="main-menu-itself-button" type="button">MAIN MENU</button>
+                </div>
             </div>
         </div>
     </main>
