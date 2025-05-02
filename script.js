@@ -206,9 +206,9 @@ function checkIfTheGameHasBeenWon() {
     };
 };
 
-// PLAY AGAIN
+// RESETTING EVERYTHING
 
-function playAgain() {
+function resettingEverything() {
     gameObj.word.wordItself = undefined;
     gameObj.word.wordCategory = undefined;
     gameObj.hangman.hangmanCounter = 0;
@@ -222,13 +222,24 @@ function playAgain() {
     hangman.style.backgroundPosition = 'left';
     hangman.style.animation = '500ms steps(4, jump-none) infinite hangman-step-animation';
 
-    gettingARandomWord();
-    closeMenu();
-
+    
     // REMOVING THE ADDITTIONAL CLASSES FROM THE KEY BUTTONS
     for (const keyButton of keyButtons) {
         keyButton.setAttribute('class', 'main-keyboard-inner-button');
     };
+};
+
+// PLAY AGAIN
+
+function playAgain() {
+    // RESETTING EVERYTHING
+    resettingEverything();
+
+    // STARTING THE GAME AGAIN
+    gettingARandomWord();
+
+    // CLOSING THE POP MENU
+    closeMenu();
 };
 
 // INITIALIZING THE BUTTONS

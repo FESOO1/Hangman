@@ -13,6 +13,7 @@
 
 body {
     background-color: rgb(240,240,240);
+    position: relative;
 }
 
 body::after {
@@ -38,7 +39,7 @@ main {
     align-items: center;
     justify-content: space-between;
     padding-block: 20px;
-    row-gap: 20px;
+    row-gap: 80px;
 }
 
 /* MAIN TOP */
@@ -271,4 +272,44 @@ main {
 
 .main-menu-itself-button:active {
     background-color: rgb(235, 235, 235);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 600px) {
+    main {
+        --width: calc(100% - 40px);
+    }
+    .main-keyboard {
+        row-gap: 3px;
+    }
+    .main-keyboard-inner {
+        column-gap: 3px;
+    }
+    .main-keyboard-inner-button,
+    .main-top-menu-button {
+        border-radius: 0.2rem;
+        box-shadow: none;
+    }
+    .main-keyboard-inner-button:active,
+    .main-top-menu-button:active,
+    .main-keyboard-inner-button:disabled {
+        transform: none;
+    }
+    .main-keyboard-inner:nth-of-type(2) {
+        padding-inline: 0;
+    }
+    .main-keyboard-inner:nth-of-type(3) {
+        padding-inline: 0;
+    }
+    .main-menu-itself {
+        padding: 10px;
+        width: 300px;
+    }
+}
+
+@media (max-width: 450px) {
+    main {
+        --width: calc(100% - 20px);
+    }
 }
