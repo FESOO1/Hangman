@@ -50,10 +50,40 @@ main {
     justify-content: space-between;
 }
 
+/* MAIN TOP LOGO */
+
+.main-top-logo {
+}
+
 /* MAIN TOP CATEGORY */
 
 .main-top-category {
     font-style: italic;
+}
+
+/* MAIN TOP MENU BUTTON */
+
+.main-top-menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(79, 79, 79, 0.999);
+}
+
+.main-top-menu-button:hover {
+    background-color: rgb(245,245,245);
+}
+
+.main-top-menu-button:active {
+    background-color: rgb(245,245,245);
+    box-shadow: 0 0 0 rgba(79, 79, 79, 0.999);
+    transform: translateY(3px);
+    border: 1px solid rgba(0,0,0,0.3);
 }
 
 /* 
