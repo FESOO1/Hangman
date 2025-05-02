@@ -29,6 +29,56 @@ body::after {
     z-index: -1;
 }
 
+/* 
+
+    MENU
+
+*/
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 300ms;
+}
+
+.menu-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu-button {
+    font-size: 1.2rem;
+    padding: 4px 15px;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.15);
+    background-color: white;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 3px 0 rgba(79, 79, 79, 0.999);
+}
+
+.menu-button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.menu-button:hover {
+    background-color: rgb(245,245,245);
+}
+
+.menu-button:active {
+    background-color: rgb(245,245,245);
+    box-shadow: 0 0 0 rgba(79, 79, 79, 0.999);
+    transform: translateY(3px);
+}
+
 /* MAIN */
 
 main {
@@ -40,6 +90,14 @@ main {
     justify-content: space-between;
     padding-block: 20px;
     row-gap: 80px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms;
+}
+
+.main-active {
+    opacity: 1;
+    pointer-events: unset;
 }
 
 /* MAIN TOP */

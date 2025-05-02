@@ -6,6 +6,8 @@ const popupMenu = document.querySelector('.main-menu');
 const popupMenuText = document.querySelector('#popupMenuText');
 const playAgainButton = document.querySelector('#playAgainButton');
 const menuOpenButton = document.querySelector('#menuOpenButton');
+const menu = document.querySelector('.menu');
+const main = document.querySelector('main');
 
 // GAME OBJECT
 const gameObj = {
@@ -22,6 +24,12 @@ const gameObj = {
     letterFound: false,
     gameHasBeenWon: false,
     isGameStarted: false,
+};
+
+// HIDE THE MENU
+
+function hideTheMenu() {
+    menu.classList.add('menu-hidden');
 };
 
 // OPEN MENU
