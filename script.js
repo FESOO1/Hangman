@@ -107,11 +107,16 @@ for (let i = 0; i < keyButtons.length; i++) {
             keyButtons[i].classList.remove('main-keyboard-inner-button-non-existent');
         };
 
-        // CHECK IF THE PLAYER HAD USED ALL ITS ATTEMPTS
-        if (gameObj.hangman.hangmanCounter === gameObj.hangman.hangmanImage.length) {
-            console.log('Opps, you died.');
-            disablingTheKeyButtons();
-            revealTheWord();
+        // CHECK IF THE GAME HAS BEEN WON
+        checkIfTheGameHasBeenWon();
+
+        if (gameObj.gameHasBeenWon === false) {
+            // CHECK IF THE PLAYER HAD USED ALL ITS ATTEMPTS
+            if (gameObj.hangman.hangmanCounter === gameObj.hangman.hangmanImage.length) {
+                console.log('Opps, you died.');
+                disablingTheKeyButtons();
+                revealTheWord();
+            };
         };
     });
 };
@@ -136,3 +141,38 @@ function revealTheWord() {
         wordContainer.children[i].textContent = gameObj.word.wordItself[i];
     };
 };
+
+// CHECK IF THE GAME HAS BEEN WON
+
+function checkIfTheGameHasBeenWon() {
+    let counter = 0;
+
+    for (let i = 0; i < gameObj.word.wordItself.length; i++) {
+        if (gameObj.word.wordItself[i] === wordContainer.children[i].textContent) {
+            counter++;
+
+            if (counter === gameObj.word.wordItself.length) {
+                console.log('Congratulations, you won the game.');
+                gameObj.gameHasBeenWon = true;
+                disablingTheKeyButtons();
+
+                // CHANGING THE ANIMATION
+                hangman.style.background = `url(./assets/win.png) no-repeat`;
+                hangman.style.backgroundSize = 'cover';
+                hangman.style.backgroundPosition = 'left';
+                hangman.style.animation = '500ms steps(3, jump-none) infinite hangman-step-animation';
+            };
+        } else {
+            counter = 0;
+        };
+    };
+};
+
+// KEYS
+document.addEventListener('keypress', e => {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    if (alphabet.includes(e.key)) {
+        
+    };
+});
