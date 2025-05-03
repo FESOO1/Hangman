@@ -18,6 +18,7 @@ musicAudio.volume = 0.5;
 musicAudio.src = './assets/mp3.m4a';
 let isMusicOff = false;
 let isSoundOn = true;
+const enteredValue = [];
 
 // GAME OBJECT
 const gameObj = {
@@ -336,8 +337,9 @@ document.addEventListener('keypress', e => {
     const alphabet = 'qwertyuiopasdfghjklzxcvbnm';
 
     if (gameObj.isGameStarted === true) {
-        if (alphabet.includes(e.key)) {
+        if (alphabet.includes(e.key) && !enteredValue.includes(e.key)) {
             const keyValue = e.key;
+            enteredValue.push(e.key);
             
             checkIfTheKeyExists(keyValue);
     
