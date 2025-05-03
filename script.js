@@ -8,6 +8,8 @@ const playAgainButton = document.querySelector('#playAgainButton');
 const menuOpenButton = document.querySelector('#menuOpenButton');
 const menu = document.querySelector('.menu');
 const main = document.querySelector('main');
+const startButton = document.querySelector('#startButton');
+const mainMenuButton = document.querySelector('#mainMenuButton');
 
 // GAME OBJECT
 const gameObj = {
@@ -30,6 +32,21 @@ const gameObj = {
 
 function hideTheMenu() {
     menu.classList.add('menu-hidden');
+    main.classList.add('main-active');
+
+    // STARTING THE GAME
+    gettingARandomWord();
+};
+
+// GO BACK TO MAIN MENU
+
+function goBackToMainMenu() {
+    menu.classList.remove('menu-hidden');
+    main.classList.remove('main-active');
+    // RESETTING EVERYTHING
+    resettingEverything();
+    // CLOSING THE POP MENU
+    closeMenu();
 };
 
 // OPEN MENU
@@ -79,8 +96,6 @@ async function gettingARandomWord() {
         console.error(e.message);
     };
 };
-
-gettingARandomWord();
 
 // DISPLAYING THE WORD ELEMENTS
 
@@ -251,6 +266,8 @@ function playAgain() {
 };
 
 // INITIALIZING THE BUTTONS
+mainMenuButton.addEventListener('click', goBackToMainMenu);
+startButton.addEventListener('click', hideTheMenu);
 menuOpenButton.addEventListener('click', openMenu);
 playAgainButton.addEventListener('click', () => {
     if (gameObj.isGameStarted === true) {

@@ -55,7 +55,7 @@ body::after {
 }
 
 .menu-button {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     padding: 4px 15px;
     border-radius: 0.5rem;
     border: 1px solid rgba(0,0,0,0.15);
@@ -110,9 +110,6 @@ main {
 }
 
 /* MAIN TOP LOGO */
-
-/* .main-top-logo {
-} */
 
 /* MAIN TOP CATEGORY */
 
@@ -369,5 +366,14 @@ main {
 @media (max-width: 450px) {
     main {
         --width: calc(100% - 20px);
+    }
+    .main-keyboard {
+        row-gap: 1px;
+    }
+    .main-keyboard-inner {
+        column-gap: 1px;
+    }
+    .main-keyboard-inner-button:focus {
+        outline: none;
     }
 }
