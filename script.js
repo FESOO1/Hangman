@@ -11,11 +11,13 @@ const main = document.querySelector('main');
 const startButton = document.querySelector('#startButton');
 const mainMenuButton = document.querySelector('#mainMenuButton');
 const musicButton = document.querySelector('#musicButton');
+const soundButton = document.querySelector('#soundButton');
 const musicAudio = document.createElement('audio');
 musicAudio.loop = true;
 musicAudio.volume = 0.5;
 musicAudio.src = './assets/mp3.m4a';
 let isMusicOff = false;
+let isSoundOn = true;
 
 // GAME OBJECT
 const gameObj = {
@@ -47,6 +49,20 @@ function handleTheMusic() {
         musicAudio.pause();
         
         isMusicOff = false;
+    };
+};
+
+// HANDLE THE SOUND
+
+function handleTheSound() {
+    if (isSoundOn === true) {
+        soundButton.textContent = 'SOUND OFF';
+        
+        isSoundOn = false;
+    } else {
+        soundButton.textContent = 'SOUND ON';
+        
+        isSoundOn = true;
     };
 };
 
@@ -177,10 +193,24 @@ for (let i = 0; i < keyButtons.length; i++) {
             keyButtons[i].classList.add('main-keyboard-inner-button-non-existent');
             keyButtons[i].classList.remove('main-keyboard-inner-button-found');
             gameObj.hangman.hangmanCounter++;
+
+            // SOUND EFFECT
+            if (isSoundOn === true) {
+                const audio = document.createElement('audio');
+                audio.src = './assets/incorrect.mp3';
+                audio.play();
+            };
         } else {
             keyButtons[i].disabled = true;
             keyButtons[i].classList.add('main-keyboard-inner-button-found');
             keyButtons[i].classList.remove('main-keyboard-inner-button-non-existent');
+
+            // SOUND EFFECT
+            if (isSoundOn === true) {
+                const audio = document.createElement('audio');
+                audio.src = './assets/correct.mp3';
+                audio.play();
+            };
         };
 
         // CHECK IF THE GAME HAS BEEN WON
@@ -288,6 +318,7 @@ function playAgain() {
 };
 
 // INITIALIZING THE BUTTONS
+soundButton.addEventListener('click', handleTheSound);
 musicButton.addEventListener('click', handleTheMusic);
 mainMenuButton.addEventListener('click', goBackToMainMenu);
 startButton.addEventListener('click', hideTheMenu);
@@ -304,51 +335,67 @@ playAgainButton.addEventListener('click', () => {
 document.addEventListener('keypress', e => {
     const alphabet = 'qwertyuiopasdfghjklzxcvbnm';
 
-    if (alphabet.includes(e.key)) {
-        const keyValue = e.key;
-        
-        checkIfTheKeyExists(keyValue);
-
-        // HANDLING THE HANGMAN AND TEXT
-        for (let inner = 0; inner < gameObj.word.wordItself.length; inner++) {
-            if (keyValue === gameObj.word.wordItself[inner]) {
-                wordContainer.children[inner].textContent = gameObj.word.wordItself[inner];
-            } else {
-                // CHANGING THE ANIMATION
-                hangman.style.background = `url(${gameObj.hangman.hangmanImage[gameObj.hangman.hangmanCounter]}) no-repeat`;
-                hangman.style.backgroundSize = 'cover';
-                hangman.style.backgroundPosition = 'left';
-                hangman.style.animation = gameObj.hangman.hangmanAnimation[gameObj.hangman.hangmanCounter];
-            };
-        };
-
-        for (let i = 0; i < keyButtons.length; i++) {
-            if (keyButtons[i].value === keyValue) {
-                if (gameObj.letterFound === false) {
-                    keyButtons[i].disabled = true;
-                    keyButtons[i].classList.add('main-keyboard-inner-button-non-existent');
-                    keyButtons[i].classList.remove('main-keyboard-inner-button-found');
-                    gameObj.hangman.hangmanCounter++;
+    if (gameObj.isGameStarted === true) {
+        if (alphabet.includes(e.key)) {
+            const keyValue = e.key;
+            
+            checkIfTheKeyExists(keyValue);
+    
+            // HANDLING THE HANGMAN AND TEXT
+            for (let inner = 0; inner < gameObj.word.wordItself.length; inner++) {
+                if (keyValue === gameObj.word.wordItself[inner]) {
+                    wordContainer.children[inner].textContent = gameObj.word.wordItself[inner];
                 } else {
-                    keyButtons[i].disabled = true;
-                    keyButtons[i].classList.add('main-keyboard-inner-button-found');
-                    keyButtons[i].classList.remove('main-keyboard-inner-button-non-existent');
+                    // CHANGING THE ANIMATION
+                    hangman.style.background = `url(${gameObj.hangman.hangmanImage[gameObj.hangman.hangmanCounter]}) no-repeat`;
+                    hangman.style.backgroundSize = 'cover';
+                    hangman.style.backgroundPosition = 'left';
+                    hangman.style.animation = gameObj.hangman.hangmanAnimation[gameObj.hangman.hangmanCounter];
                 };
             };
-        };
-
-        // CHECK IF THE GAME HAS BEEN WON
-        checkIfTheGameHasBeenWon();
-
-        if (gameObj.gameHasBeenWon === false) {
-            // CHECK IF THE PLAYER HAD USED ALL ITS ATTEMPTS
-            if (gameObj.hangman.hangmanCounter === gameObj.hangman.hangmanImage.length) {
-                disablingTheKeyButtons();
-                revealTheWord();
-                popupMenuText.textContent = 'Opps, You died. Try again';
-                setTimeout(() => popupMenu.classList.add('main-menu-active'), 2000);
-                gameObj.isGameStarted = false;
-                handlingThePlayAgainButtonText();
+    
+            for (let i = 0; i < keyButtons.length; i++) {
+                if (keyButtons[i].value === keyValue) {
+                    if (gameObj.letterFound === false) {
+                        keyButtons[i].disabled = true;
+                        keyButtons[i].classList.add('main-keyboard-inner-button-non-existent');
+                        keyButtons[i].classList.remove('main-keyboard-inner-button-found');
+                        gameObj.hangman.hangmanCounter++;
+            
+                        // SOUND EFFECT
+                        if (isSoundOn === true) {
+                            const audio = document.createElement('audio');
+                            audio.src = './assets/incorrect.mp3';
+                            audio.play();
+                        };
+                    } else {
+                        keyButtons[i].disabled = true;
+                        keyButtons[i].classList.add('main-keyboard-inner-button-found');
+                        keyButtons[i].classList.remove('main-keyboard-inner-button-non-existent');
+            
+                        // SOUND EFFECT
+                        if (isSoundOn === true) {
+                            const audio = document.createElement('audio');
+                            audio.src = './assets/correct.mp3';
+                            audio.play();
+                        };
+                    };
+                };
+            };
+    
+            // CHECK IF THE GAME HAS BEEN WON
+            checkIfTheGameHasBeenWon();
+    
+            if (gameObj.gameHasBeenWon === false) {
+                // CHECK IF THE PLAYER HAD USED ALL ITS ATTEMPTS
+                if (gameObj.hangman.hangmanCounter === gameObj.hangman.hangmanImage.length) {
+                    disablingTheKeyButtons();
+                    revealTheWord();
+                    popupMenuText.textContent = 'Opps, You died. Try again';
+                    setTimeout(() => popupMenu.classList.add('main-menu-active'), 2000);
+                    gameObj.isGameStarted = false;
+                    handlingThePlayAgainButtonText();
+                };
             };
         };
     };
